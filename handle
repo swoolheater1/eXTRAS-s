@@ -1,0 +1,108 @@
+
+var dict = {
+ 'Rain': ['severe thunderstorms', 'thunderstorms', 
+          'mixed rain and snow', 'mixed rain and sleet']
+};
+{ "dates & times": [
+    { "date": "2014-08-24", "time": "150" },
+    { "date": "2014-08-24", "time": "165" },
+    { "date": "2014-08-24", "time": "180" },
+] }
+var compName = []
+var compCat = []
+var compUnits = []
+var compLoc = []
+var compEmail = []
+var compDonating = []
+var charityName = []
+var charityCat = []
+var charityUnitsNeed = []
+var charityEmail = []              
+
+var char1 ={"name"}
+
+var queueFood = [];
+var queueClothes = [];
+var queueToys = [];
+var proccessedCharity = [];
+function companyPost(comp){
+        //creates post to let charity knows that there's a donation to be picked up
+        for(var i = 0; i < compName.length; i++)
+        {
+          if(compName[i] = comp[name])
+            {
+              compUnits[i] = comp[units];
+              
+            }
+        }
+        
+        //
+}
+function processDonation(comp) {
+        //grab top of
+        var cat = comp[1];
+        var units = comp[2];
+        var currCharity;
+        
+        while(units > 0 )
+        {
+          //set correct queue
+          if(cat == "Food")
+          {
+            currCharity = queueFood.shift();
+          }
+          else if(cat == "Clothes")
+          {
+            currCharity = queueClothes.shift();
+          }
+          else
+          { //toys
+            currCharity = queueToys.shift();
+          }
+          
+          //assigns units to charity
+          if(currCharity[2] <= units)
+          {
+            proccessedCharity.push(currCharity);
+            units = units - currCharity[2];
+            
+          } else { //more need then units left
+            var oldValue = currCharity[2];
+            currCharity[2] = units;
+            proccessedCharity.push(currCharity);
+            
+            //push charity back to top of queue
+            currCharity[2] = oldValue - units;
+            if(cat == "Food") {
+               queueFood.unshift(currCharity);
+            }
+            else if(cat == "Clothes") {
+              queueClothes.unshift(currCharity);
+            }
+            else {
+              queueToys.unshift(currCharity);
+            }
+            
+            units = 0;
+          }
+        }
+        sendEmail();
+}
+function sendEmail(){
+    
+}
+function charityListing(char){
+        //adds charity request to queue
+        var cat = char[1];
+        
+        if (cat == "Food") 
+        {
+          queueFood.push(char);
+        } else if (cat == "Clothes")
+        {
+          queueClothes.push(char);
+        } else 
+        {
+          queueToys.push(char);
+        }
+}
